@@ -2,21 +2,14 @@ import streamlit as st
 
 st.set_page_config(page_title="Aurora Momentos", layout="wide")
 
-# ---------------- MOBILE + ESTILO ----------------
 st.markdown("""
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
 <style>
-#MainMenu {visibility: hidden;}
-footer {visibility: hidden;}
-header {visibility: hidden;}
 
-.block-container {
-    padding: 1rem;
-}
-
-button {
-    font-size: 16px !important;
+/* FORÇAR MODO CLARO (resolve iPhone) */
+:root {
+    color-scheme: light;
 }
 
 /* FONTE */
@@ -24,32 +17,57 @@ button {
 
 html, body {
     font-family: 'Poppins', sans-serif;
-    background-color: #FAF7F8;
+    background-color: #FAF7F8 !important;
+    color: #000000 !important;
+}
+
+/* ESCONDER MENU STREAMLIT */
+#MainMenu {visibility: hidden;}
+footer {visibility: hidden;}
+header {visibility: hidden;}
+
+/* ESPAÇAMENTO */
+.block-container {
+    padding: 1rem;
+}
+
+/* BOTÕES */
+button {
+    font-size: 16px !important;
 }
 
 /* CARD */
 .card {
-    background: white;
+    background: white !important;
+    color: black !important;
     border-radius: 20px;
     box-shadow: 0px 6px 18px rgba(0,0,0,0.08);
     margin-bottom: 15px;
     overflow: hidden;
 }
 
+.card h3, .card p {
+    color: black !important;
+}
+
+/* IMAGEM */
 .card img {
     width: 100%;
     height: 200px;
     object-fit: cover;
 }
 
+/* CONTEÚDO */
 .card-content {
     padding: 15px;
 }
 
+/* DESTAQUE */
 .destaque {
     border: 2px solid #BFA181;
 }
 
+/* BADGE */
 .badge {
     background-color: #BFA181;
     color: white;
@@ -58,7 +76,7 @@ html, body {
     font-size: 12px;
 }
 
-/* BOTÃO WHATSAPP */
+/* WHATSAPP */
 .whatsapp {
     display:block;
     text-align:center;
@@ -70,6 +88,7 @@ html, body {
     margin-bottom:20px;
     font-weight:600;
 }
+
 </style>
 """, unsafe_allow_html=True)
 
