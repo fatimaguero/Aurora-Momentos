@@ -3,32 +3,26 @@ from datetime import date
 
 st.set_page_config(page_title="Aurora Momentos", layout="wide")
 
-# ---------------- ESTILO FINAL LIMPO ----------------
+# ---------------- ESTILO LIMPO (SEM CONFLITO MOBILE) ----------------
 st.markdown("""
 <style>
 
-/* fundo geral (minimalista, sem preto) */
+/* fundo suave e profissional */
 .stApp {
     background-color: #F7F5F3 !important;
     font-family: 'Poppins', sans-serif;
 }
 
-/* texto seguro */
-h1, h2, h3, h4, h5 {
+/* texto sempre legível */
+h1, h2, h3, h4, h5, p, label {
     color: #222 !important;
 }
 
-p, li, label {
-    color: #333 !important;
-    line-height: 1.6;
-}
-
-/* ---------------- HEADER ---------------- */
+/* header */
 .app-header {
     text-align:center;
     padding:15px;
     border-bottom:1px solid #e6e6e6;
-    background: transparent !important;
 }
 
 .app-title {
@@ -42,56 +36,7 @@ p, li, label {
     font-size: 14px;
 }
 
-/* ---------------- MENU (CORREÇÃO FINAL MOBILE) ---------------- */
-
-/* caixa principal do select */
-div[data-baseweb="select"] {
-    background-color: #ffffff !important;
-    border: 1px solid #ddd !important;
-    border-radius: 10px !important;
-}
-
-/* texto selecionado */
-div[data-baseweb="select"] * {
-    color: #222 !important;
-}
-
-/* 🔥 DROPDOWN (REMOVE FUNDO PRETO DO CELULAR) */
-div[data-baseweb="popover"] {
-    z-index: 999999 !important;
-}
-
-/* lista de opções */
-div[role="listbox"] {
-    background-color: #ffffff !important;
-    border: 1px solid #e5e5e5 !important;
-}
-
-/* opções visíveis */
-div[role="option"] {
-    color: #222 !important;
-    background-color: #ffffff !important;
-}
-
-/* hover leve minimalista */
-div[role="option"]:hover {
-    background-color: #f2f0ee !important;
-}
-
-/* ---------------- BOTÃO ---------------- */
-.stButton > button {
-    background-color: #BFA181 !important;
-    color: white !important;
-    border-radius: 10px !important;
-    border: none !important;
-    font-weight: 600;
-}
-
-.stButton > button:hover {
-    background-color: #a88f6d !important;
-}
-
-/* ---------------- CARDS ---------------- */
+/* cards */
 .card {
     background:white !important;
     border-radius:20px;
@@ -104,10 +49,13 @@ div[role="option"]:hover {
     border:2px solid #BFA181;
 }
 
-/* inputs */
-input, textarea, select {
-    color:#222 !important;
-    background-color:white !important;
+/* botões */
+.stButton > button {
+    background-color: #BFA181 !important;
+    color: white !important;
+    border-radius: 10px !important;
+    border: none !important;
+    font-weight: 600;
 }
 
 </style>
@@ -121,15 +69,15 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-# ---------------- MENU ----------------
-menu = st.selectbox("", [
+# ---------------- MENU (🔥 CORREÇÃO DEFINITIVA) ----------------
+menu = st.radio("", [
     "Início",
     "Buscar fotógrafo",
     "Filmmakers",
     "Meu evento",
     "Sou fotógrafo",
     "Sou filmmaker"
-])
+], horizontal=True)
 
 # ---------------- BANCO ----------------
 if "fotografos" not in st.session_state:
@@ -152,33 +100,27 @@ if menu == "Início":
     st.markdown("## ✨ Crie o site do seu evento gratuitamente")
 
     st.markdown("""
-### 💖 Tudo o que você pode fazer na Aurora Momentos
-
 💍 Casamentos  
-- Site completo do casal com história e fotos  
-- Lista de convidados e confirmação de presença  
-- Compartilhamento fácil pelo WhatsApp  
+- Site completo com história do casal  
+- Lista de convidados  
+- Compartilhamento fácil  
 
 👑 Festa de 15 anos  
-- Página personalizada da debutante  
-- Contagem regressiva até o grande dia  
-- Informações organizadas do evento  
+- Página personalizada  
+- Contagem regressiva  
+- Informações organizadas  
 
 🎈 Eventos infantis  
-- Tema personalizado do aniversário  
-- Local, horário e lembretes automáticos  
-- Experiência simples para os convidados  
+- Tema do aniversário  
+- Local e horário  
+- Experiência simples  
 
-📸 Profissionais do evento  
-- Encontre fotógrafos e filmmakers  
-- Compare preços e portfólios  
-- Contratação direta simplificada  
+📸 Profissionais  
+- Fotógrafos e filmmakers  
+- Comparação de preços  
+- Contratação direta  
 
-🚀 Recursos extras  
-- Site pronto em minutos  
-- Totalmente gratuito para criar evento  
-- Acesso pelo celular ou computador  
-- Design elegante e profissional
+🚀 Plataforma completa e gratuita
 """)
 
 # ---------------- BUSCAR FOTÓGRAFO ----------------
@@ -189,15 +131,13 @@ elif menu == "Buscar fotógrafo":
     cidade = st.text_input("Cidade")
     preco = st.slider("Preço máximo", 0, 5000, 1000)
 
-    if st.button("Buscar fotógrafo"):
+    if st.button("Buscar"):
 
         resultados = [
             f for f in st.session_state.fotografos
             if cidade.lower() in f["cidade"].lower()
             and f["preco"] <= preco
         ]
-
-        resultados = sorted(resultados, key=lambda x: x.get("destaque"), reverse=True)
 
         for f in resultados:
             badge = "🌟 Premium" if f.get("destaque") else ""
@@ -209,25 +149,21 @@ elif menu == "Buscar fotógrafo":
             <p>📍 {f['cidade']}</p>
             <p>💰 R${f['preco']}</p>
             <p>📷 {f['instagram']}</p>
-            <p>📸 Portfólio: {f['portfolio']}</p>
             </div>
             """, unsafe_allow_html=True)
 
 # ---------------- FILMMAKERS ----------------
 elif menu == "Filmmakers":
 
-    st.markdown("### 🎬 Cinegrafistas disponíveis")
+    st.markdown("### 🎬 Cinegrafistas")
 
     for f in st.session_state.filmmakers:
-        badge = "🌟 Premium" if f.get("destaque") else ""
-
         st.markdown(f"""
         <div class="card">
-        <h3>{f['nome']} {badge}</h3>
+        <h3>{f['nome']}</h3>
         <p>📍 {f['cidade']}</p>
         <p>💰 R${f['preco']}</p>
         <p>📷 {f['instagram']}</p>
-        <p>🎬 Portfólio: {f['portfolio']}</p>
         </div>
         """, unsafe_allow_html=True)
 
@@ -240,82 +176,67 @@ elif menu == "Meu evento":
 
     if opcao == "Criar":
 
-        nome = st.text_input("Nome do evento")
-        data_evento = st.date_input("Data")
-        descricao = st.text_area("Descrição")
-        local = st.text_input("Local")
+        st.text_input("Nome do evento")
+        st.date_input("Data")
+        st.text_area("Descrição")
+        st.text_input("Local")
 
         if st.button("Criar evento"):
             st.success("Evento criado!")
 
     else:
 
-        data_exemplo = date(2026, 12, 20)
-        dias = (data_exemplo - date.today()).days
-
-        st.image("https://images.unsplash.com/photo-1519741497674-611481863552")
+        dias = (date(2026, 12, 20) - date.today()).days
 
         st.markdown(f"""
         <div class="card">
         <h2 style="text-align:center;">Ana & Lucas 💍</h2>
-
-        <p style="text-align:center;">
-        Um dia inesquecível para celebrar o amor
-        </p>
-
         <p>📅 20/12/2026</p>
         <p>⏳ {dias} dias</p>
-
         <p>📍 Igreja Central</p>
-        <p>🎉 Espaço Aurora</p>
         </div>
         """, unsafe_allow_html=True)
 
-# ---------------- FOTÓGRAFO ----------------
+# ---------------- CADASTROS ----------------
 elif menu == "Sou fotógrafo":
 
-    st.markdown("### 📸 Cadastre-se como fotógrafo")
+    st.markdown("### 📸 Cadastro fotógrafo")
 
     nome = st.text_input("Nome")
     cidade = st.text_input("Cidade")
     preco = st.number_input("Preço")
     instagram = st.text_input("Instagram")
-    portfolio = st.text_input("Portfólio")
 
     plano = st.radio("Plano", ["Básico", "Premium 🌟"])
 
-    if st.button("Cadastrar fotógrafo"):
+    if st.button("Cadastrar"):
         st.session_state.fotografos.append({
             "nome": nome,
             "cidade": cidade,
             "preco": preco,
             "instagram": instagram,
-            "portfolio": portfolio,
             "destaque": "Premium" in plano
         })
 
         st.success("Cadastrado!")
 
-# ---------------- FILMMAKER ----------------
 elif menu == "Sou filmmaker":
 
-    st.markdown("### 🎬 Cadastre-se como filmmaker")
+    st.markdown("### 🎬 Cadastro filmmaker")
 
     nome = st.text_input("Nome")
     cidade = st.text_input("Cidade")
     preco = st.number_input("Preço")
     instagram = st.text_input("Instagram")
-    portfolio = st.text_input("Portfólio")
 
     plano = st.radio("Plano", ["Básico", "Premium 🌟"])
 
-    if st.button("Cadastrar filmmaker"):
+    if st.button("Cadastrar"):
         st.session_state.filmmakers.append({
             "nome": nome,
             "cidade": cidade,
             "preco": preco,
             "instagram": instagram,
-            "portfolio": portfolio,
             "destaque": "Premium" in plano
         })
 
