@@ -3,7 +3,7 @@ from datetime import date
 
 st.set_page_config(page_title="Aurora Momentos", layout="wide")
 
-# ---------------- ESTILO FINAL ESTÁVEL ----------------
+# ---------------- ESTILO FINAL (MOBILE + PC) ----------------
 st.markdown("""
 <style>
 
@@ -13,8 +13,18 @@ st.markdown("""
     font-family: 'Poppins', sans-serif;
 }
 
-/* 🔥 TEXTO SEGURO (NÃO QUEBRA O INÍCIO) */
-h1, h2, h3, h4, h5, p, label {
+/* 🔥 TEXTO SEGURO (NÃO QUEBRA INÍCIO NO CELULAR) */
+h1, h2, h3, h4, h5 {
+    color: #222 !important;
+}
+
+p, li {
+    color: #222 !important;
+    line-height: 1.6;
+}
+
+/* protege Markdown do Streamlit (resolve sumir texto) */
+.stMarkdown {
     color: #222 !important;
 }
 
@@ -31,17 +41,15 @@ h1, h2, h3, h4, h5, p, label {
     color: #BFA181 !important;
     font-size: 34px;
     font-weight: 700;
-    margin: 0;
 }
 
 /* subtítulo */
 .app-subtitle {
     color: #777 !important;
     font-size: 14px;
-    margin-top: 5px;
 }
 
-/* ---------------- MENU (SEM SUMIR TEXTO) ---------------- */
+/* ---------------- MENU (CORRIGIDO MOBILE) ---------------- */
 div[data-testid="stSelectbox"] label {
     color: #222 !important;
 }
@@ -54,7 +62,7 @@ div[data-baseweb="select"] * {
     color: #222 !important;
 }
 
-/* dropdown */
+/* dropdown branco */
 div[role="listbox"] {
     background-color: white !important;
 }
@@ -63,7 +71,7 @@ div[role="option"] {
     color: #222 !important;
 }
 
-/* ---------------- BOTÃO (CORRIGIDO DEFINITIVO) ---------------- */
+/* ---------------- BOTÃO (VISÍVEL NO CELULAR) ---------------- */
 .stButton > button {
     background-color: #BFA181 !important;
     color: white !important;
@@ -75,7 +83,6 @@ div[role="option"] {
 
 .stButton > button:hover {
     background-color: #a88f6d !important;
-    color: white !important;
 }
 
 /* ---------------- CARDS ---------------- */
@@ -135,7 +142,7 @@ if "filmmakers" not in st.session_state:
          "instagram": "@lovefilms", "portfolio": "link", "destaque": True}
     ]
 
-# ---------------- INÍCIO ----------------
+# ---------------- INÍCIO (AGORA NÃO SOME MAIS NO CELULAR) ----------------
 if menu == "Início":
 
     st.markdown("## ✨ Crie o site do seu evento gratuitamente")
