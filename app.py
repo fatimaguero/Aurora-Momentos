@@ -3,22 +3,19 @@ from datetime import date
 
 st.set_page_config(page_title="Aurora Momentos", layout="wide")
 
-# ---------------- ESTILO LIMPO (SEM CONFLITO MOBILE) ----------------
+# ---------------- ESTILO LIMPO ----------------
 st.markdown("""
 <style>
 
-/* fundo suave e profissional */
 .stApp {
     background-color: #F7F5F3 !important;
     font-family: 'Poppins', sans-serif;
 }
 
-/* texto sempre legível */
 h1, h2, h3, h4, h5, p, label {
     color: #222 !important;
 }
 
-/* header */
 .app-header {
     text-align:center;
     padding:15px;
@@ -69,7 +66,7 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-# ---------------- MENU (🔥 CORREÇÃO DEFINITIVA) ----------------
+# ---------------- MENU ----------------
 menu = st.radio("", [
     "Início",
     "Buscar fotógrafo",
@@ -101,17 +98,17 @@ if menu == "Início":
 
     st.markdown("""
 💍 Casamentos  
-- Site completo com história do casal  
+- Site completo do casal  
 - Lista de convidados  
 - Compartilhamento fácil  
 
 👑 Festa de 15 anos  
 - Página personalizada  
 - Contagem regressiva  
-- Informações organizadas  
+- Informações do evento  
 
 🎈 Eventos infantis  
-- Tema do aniversário  
+- Tema personalizado  
 - Local e horário  
 - Experiência simples  
 
@@ -133,19 +130,11 @@ elif menu == "Buscar fotógrafo":
 
     if st.button("Buscar"):
 
-        resultados = [
-            f for f in st.session_state.fotografos
-            if cidade.lower() in f["cidade"].lower()
-            and f["preco"] <= preco
-        ]
-
-        for f in resultados:
-            badge = "🌟 Premium" if f.get("destaque") else ""
-            classe = "card premium" if f.get("destaque") else "card"
+        for f in st.session_state.fotografos:
 
             st.markdown(f"""
-            <div class="{classe}">
-            <h3>{f['nome']} {badge}</h3>
+            <div class="card">
+            <h3>{f['nome']}</h3>
             <p>📍 {f['cidade']}</p>
             <p>💰 R${f['preco']}</p>
             <p>📷 {f['instagram']}</p>
@@ -155,9 +144,10 @@ elif menu == "Buscar fotógrafo":
 # ---------------- FILMMAKERS ----------------
 elif menu == "Filmmakers":
 
-    st.markdown("### 🎬 Cinegrafistas")
+    st.markdown("### 🎬 Cinegrafistas disponíveis")
 
     for f in st.session_state.filmmakers:
+
         st.markdown(f"""
         <div class="card">
         <h3>{f['nome']}</h3>
@@ -191,16 +181,27 @@ elif menu == "Meu evento":
         st.markdown(f"""
         <div class="card">
         <h2 style="text-align:center;">Ana & Lucas 💍</h2>
-        <p>📅 20/12/2026</p>
         <p>⏳ {dias} dias</p>
         <p>📍 Igreja Central</p>
         </div>
         """, unsafe_allow_html=True)
 
-# ---------------- CADASTROS ----------------
+# ---------------- CADASTRO FOTÓGRAFO ----------------
 elif menu == "Sou fotógrafo":
 
-    st.markdown("### 📸 Cadastro fotógrafo")
+    st.markdown("### 📸 Cadastre-se como fotógrafo")
+
+    st.markdown("""
+### 💼 Planos
+
+<p><b>Básico — R$ 79,90</b></p>
+<p>✔ Perfil no site</p>
+
+<hr>
+
+<p><b>Premium — R$ 129,90 🌟</b></p>
+<p>✔ Destaque nas buscas<br>✔ Mais visibilidade</p>
+""", unsafe_allow_html=True)
 
     nome = st.text_input("Nome")
     cidade = st.text_input("Cidade")
@@ -220,9 +221,22 @@ elif menu == "Sou fotógrafo":
 
         st.success("Cadastrado!")
 
+# ---------------- CADASTRO FILMMAKER ----------------
 elif menu == "Sou filmmaker":
 
-    st.markdown("### 🎬 Cadastro filmmaker")
+    st.markdown("### 🎬 Cadastre-se como filmmaker")
+
+    st.markdown("""
+### 💼 Planos
+
+<p><b>Básico — R$ 79,90</b></p>
+<p>✔ Perfil no site</p>
+
+<hr>
+
+<p><b>Premium — R$ 129,90 🌟</b></p>
+<p>✔ Destaque nas buscas<br>✔ Mais visibilidade</p>
+""", unsafe_allow_html=True)
 
     nome = st.text_input("Nome")
     cidade = st.text_input("Cidade")
