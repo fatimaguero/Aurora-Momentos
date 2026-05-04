@@ -3,11 +3,11 @@ from datetime import date
 
 st.set_page_config(page_title="Aurora Momentos", layout="wide")
 
-# ---------------- ESTILO (CORREÇÃO SEGURA) ----------------
+# ---------------- ESTILO (AJUSTE FINAL LIMPO) ----------------
 st.markdown("""
 <style>
 
-/* fundo geral (mantido) */
+/* fundo geral */
 .stApp {
     background-color: #FAF7F8 !important;
     font-family: 'Poppins', sans-serif;
@@ -18,7 +18,7 @@ h1, h2, h3, h4, h5, p, span, label {
     color: #222 !important;
 }
 
-/* ❌ REMOVIDO BANNER PRETO → agora header é LIMPO */
+/* HEADER SEM FUNDO PRETO */
 .app-header {
     text-align:center;
     padding:15px;
@@ -26,31 +26,47 @@ h1, h2, h3, h4, h5, p, span, label {
     background: transparent !important;
 }
 
-/* 🔥 título agora FIXO (não some no PC nem celular) */
+/* título */
 .app-title {
     color: #BFA181 !important;
     font-size: 34px;
     font-weight: 700;
-    margin: 0;
 }
 
-/* subtítulo visível */
+/* subtítulo */
 .app-subtitle {
     color: #777 !important;
     font-size: 14px;
-    margin-top: 5px;
 }
 
-/* menu */
+/* ---------------- MENU (CORREÇÃO DEFINITIVA MOBILE/PC) ---------------- */
+
+/* label do select */
 div[data-testid="stSelectbox"] label {
     color: #222 !important;
 }
 
-div[data-baseweb="select"] * {
+/* caixa do select */
+div[data-baseweb="select"] > div {
+    background-color: white !important;
     color: #222 !important;
 }
 
-/* cards */
+/* texto dentro do select (resolve sumir no celular) */
+div[data-baseweb="select"] span {
+    color: #222 !important;
+}
+
+/* opções dropdown (remove fundo escuro) */
+div[role="listbox"] {
+    background-color: white !important;
+}
+
+div[role="option"] {
+    color: #222 !important;
+}
+
+/* CARDS */
 .card {
     background:white !important;
     border-radius:20px;
@@ -59,6 +75,7 @@ div[data-baseweb="select"] * {
     box-shadow:0 6px 18px rgba(0,0,0,0.08);
 }
 
+/* premium */
 .premium {
     border:2px solid #BFA181;
 }
@@ -66,13 +83,13 @@ div[data-baseweb="select"] * {
 /* inputs */
 input, textarea, select {
     color:#222 !important;
-    background-color:white !important;
+    background:white !important;
 }
 
 </style>
 """, unsafe_allow_html=True)
 
-# ---------------- HEADER (SEM BANNER PRETO) ----------------
+# ---------------- HEADER ----------------
 st.markdown("""
 <div class="app-header">
     <div class="app-title">Aurora Momentos</div>
@@ -106,20 +123,39 @@ if "filmmakers" not in st.session_state:
          "instagram": "@lovefilms", "portfolio": "link", "destaque": True}
     ]
 
-# ---------------- INÍCIO ----------------
+# ---------------- INÍCIO (MELHORADO COM MAIS BENEFÍCIOS) ----------------
 if menu == "Início":
 
     st.markdown("## ✨ Crie o site do seu evento gratuitamente")
 
     st.markdown("""
-### 💖 Ideal para todos os momentos especiais
+### 💖 Tudo o que você pode fazer na Aurora Momentos
 
-💍 Casamentos  
-👑 15 anos  
-🎈 Eventos infantis  
+💍 **Casamentos**
+- Site completo do casal com história e fotos  
+- Lista de convidados e confirmação de presença  
+- Compartilhamento fácil pelo WhatsApp  
 
-📸 Fotógrafos e filmmakers  
-🚀 100% gratuito para eventos
+👑 **Festa de 15 anos**
+- Página personalizada da debutante  
+- Contagem regressiva até o grande dia  
+- Informações organizadas do evento  
+
+🎈 **Eventos infantis**
+- Tema personalizado do aniversário  
+- Local, horário e lembretes automáticos  
+- Experiência simples para os convidados  
+
+📸 **Profissionais do evento**
+- Encontre fotógrafos e filmmakers  
+- Compare preços e portfólios  
+- Contratação direta simplificada  
+
+🚀 **Recursos extras**
+- Site pronto em minutos  
+- Totalmente gratuito para criar evento  
+- Acesso pelo celular ou computador  
+- Design elegante e profissional
 """)
 
 # ---------------- BUSCA ----------------
