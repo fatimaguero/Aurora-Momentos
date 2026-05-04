@@ -8,23 +8,28 @@ st.markdown("""
 <style>
 .stApp {
     background-color: #FAF7F8;
-    color: #222 !important;
     font-family: 'Poppins', sans-serif;
 }
 
-/* garante leitura no mobile */
-h1, h2, h3, h4, p, span, label {
+/* 🔧 CORREÇÃO PRINCIPAL: garante leitura no celular */
+h1, h2, h3, h4, h5, p, span, label, div {
     color: #222 !important;
 }
 
-/* header */
+/* HEADER */
 .app-header {
     text-align:center;
     padding:10px;
     border-bottom:1px solid #eee;
 }
 
-/* cards */
+/* HEADER TEXTO BRANCO SEM ALTERAR SEU DESIGN */
+.app-header h2,
+.app-header p {
+    color: white !important;
+}
+
+/* CARDS */
 .card {
     background:white;
     border-radius:20px;
