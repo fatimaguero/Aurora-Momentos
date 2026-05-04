@@ -3,7 +3,7 @@ from datetime import date
 
 st.set_page_config(page_title="Aurora Momentos", layout="wide")
 
-# ---------------- ESTILO (CORREÇÃO FINAL ESTÁVEL) ----------------
+# ---------------- ESTILO FINAL ESTÁVEL ----------------
 st.markdown("""
 <style>
 
@@ -13,7 +13,7 @@ st.markdown("""
     font-family: 'Poppins', sans-serif;
 }
 
-/* 🔥 IMPORTANTE: não usar div global (isso fazia sumir o Início) */
+/* 🔥 TEXTO SEGURO (NÃO QUEBRA O INÍCIO) */
 h1, h2, h3, h4, h5, p, label {
     color: #222 !important;
 }
@@ -41,26 +41,41 @@ h1, h2, h3, h4, h5, p, label {
     margin-top: 5px;
 }
 
-/* ---------------- MENU (CORRIGIDO VISIBILIDADE) ---------------- */
+/* ---------------- MENU (SEM SUMIR TEXTO) ---------------- */
 div[data-testid="stSelectbox"] label {
     color: #222 !important;
 }
 
-div[data-baseweb="select"] > div {
+div[data-baseweb="select"] {
     background-color: white !important;
+}
+
+div[data-baseweb="select"] * {
     color: #222 !important;
 }
 
-div[data-baseweb="select"] span {
-    color: #222 !important;
-}
-
+/* dropdown */
 div[role="listbox"] {
     background-color: white !important;
 }
 
 div[role="option"] {
     color: #222 !important;
+}
+
+/* ---------------- BOTÃO (CORRIGIDO DEFINITIVO) ---------------- */
+.stButton > button {
+    background-color: #BFA181 !important;
+    color: white !important;
+    border-radius: 10px !important;
+    padding: 8px 16px !important;
+    border: none !important;
+    font-weight: 600;
+}
+
+.stButton > button:hover {
+    background-color: #a88f6d !important;
+    color: white !important;
 }
 
 /* ---------------- CARDS ---------------- */
@@ -120,7 +135,7 @@ if "filmmakers" not in st.session_state:
          "instagram": "@lovefilms", "portfolio": "link", "destaque": True}
     ]
 
-# ---------------- INÍCIO (AGORA NÃO SOME MAIS TEXTO) ----------------
+# ---------------- INÍCIO ----------------
 if menu == "Início":
 
     st.markdown("## ✨ Crie o site do seu evento gratuitamente")
@@ -163,7 +178,7 @@ elif menu == "Buscar fotógrafo":
     cidade = st.text_input("Cidade")
     preco = st.slider("Preço máximo", 0, 5000, 1000)
 
-    if st.button("Buscar"):
+    if st.button("Buscar fotógrafo"):
 
         resultados = [
             f for f in st.session_state.fotografos
