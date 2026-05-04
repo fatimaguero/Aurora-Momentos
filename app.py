@@ -3,27 +3,27 @@ from datetime import date
 
 st.set_page_config(page_title="Aurora Momentos", layout="wide")
 
-# ---------------- ESTILO FINAL (MOBILE + PC) ----------------
+# ---------------- ESTILO FINAL ESTÁVEL ----------------
 st.markdown("""
 <style>
 
-/* fundo geral */
+/* fundo geral (SEM PRETO) */
 .stApp {
     background-color: #FAF7F8 !important;
     font-family: 'Poppins', sans-serif;
 }
 
-/* 🔥 TEXTO SEGURO (NÃO QUEBRA INÍCIO NO CELULAR) */
+/* texto geral */
 h1, h2, h3, h4, h5 {
     color: #222 !important;
 }
 
-p, li {
+p, li, label {
     color: #222 !important;
     line-height: 1.6;
 }
 
-/* protege Markdown do Streamlit (resolve sumir texto) */
+/* protege markdown no mobile */
 .stMarkdown {
     color: #222 !important;
 }
@@ -36,42 +36,46 @@ p, li {
     background: transparent !important;
 }
 
-/* título */
 .app-title {
     color: #BFA181 !important;
     font-size: 34px;
     font-weight: 700;
 }
 
-/* subtítulo */
 .app-subtitle {
     color: #777 !important;
     font-size: 14px;
 }
 
-/* ---------------- MENU (CORRIGIDO MOBILE) ---------------- */
-div[data-testid="stSelectbox"] label {
-    color: #222 !important;
-}
-
+/* ---------------- MENU (CORRIGIDO DEFINITIVO) ---------------- */
+/* caixa do select */
 div[data-baseweb="select"] {
     background-color: white !important;
+    border-radius: 10px !important;
 }
 
+/* texto selecionado */
 div[data-baseweb="select"] * {
     color: #222 !important;
 }
 
-/* dropdown branco */
+/* 🔥 OPÇÕES (ESSA É A CORREÇÃO DO SEU BUG) */
 div[role="listbox"] {
     background-color: white !important;
+    border: 1px solid #eee !important;
+    z-index: 9999 !important;
 }
 
 div[role="option"] {
     color: #222 !important;
+    background-color: white !important;
 }
 
-/* ---------------- BOTÃO (VISÍVEL NO CELULAR) ---------------- */
+div[role="option"]:hover {
+    background-color: #f2f2f2 !important;
+}
+
+/* ---------------- BOTÃO ---------------- */
 .stButton > button {
     background-color: #BFA181 !important;
     color: white !important;
@@ -94,7 +98,6 @@ div[role="option"] {
     box-shadow:0 6px 18px rgba(0,0,0,0.08);
 }
 
-/* premium */
 .premium {
     border:2px solid #BFA181;
 }
@@ -131,7 +134,6 @@ if "fotografos" not in st.session_state:
     st.session_state.fotografos = [
         {"nome": "Ana Luz", "cidade": "Petrópolis", "preco": 900,
          "instagram": "@analuzfoto", "portfolio": "link", "destaque": True},
-
         {"nome": "Carlos Vieira", "cidade": "Rio", "preco": 600,
          "instagram": "@carlosfoto", "portfolio": "link", "destaque": False},
     ]
@@ -142,7 +144,7 @@ if "filmmakers" not in st.session_state:
          "instagram": "@lovefilms", "portfolio": "link", "destaque": True}
     ]
 
-# ---------------- INÍCIO (AGORA NÃO SOME MAIS NO CELULAR) ----------------
+# ---------------- INÍCIO ----------------
 if menu == "Início":
 
     st.markdown("## ✨ Crie o site do seu evento gratuitamente")
@@ -264,7 +266,6 @@ elif menu == "Meu evento":
 
         <p>📍 Igreja Central</p>
         <p>🎉 Espaço Aurora</p>
-
         </div>
         """, unsafe_allow_html=True)
 
@@ -272,21 +273,6 @@ elif menu == "Meu evento":
 elif menu == "Sou fotógrafo":
 
     st.markdown("### 📸 Cadastre-se como fotógrafo")
-
-    st.markdown("""
-    <div class="card">
-    <h3>💼 Planos</h3>
-
-    <p><strong>Básico — R$ 79,90</strong></p>
-    <p>✔ Perfil no site</p>
-
-    <hr>
-
-    <p><strong>Premium — R$ 129,90 🌟</strong></p>
-    <p>✔ Destaque nas buscas<br>
-    ✔ Mais visibilidade</p>
-    </div>
-    """, unsafe_allow_html=True)
 
     nome = st.text_input("Nome")
     cidade = st.text_input("Cidade")
@@ -297,15 +283,13 @@ elif menu == "Sou fotógrafo":
     plano = st.radio("Plano", ["Básico", "Premium 🌟"])
 
     if st.button("Cadastrar fotógrafo"):
-        destaque = True if "Premium" in plano else False
-
         st.session_state.fotografos.append({
             "nome": nome,
             "cidade": cidade,
             "preco": preco,
             "instagram": instagram,
             "portfolio": portfolio,
-            "destaque": destaque
+            "destaque": "Premium" in plano
         })
 
         st.success("Cadastrado!")
@@ -324,15 +308,13 @@ elif menu == "Sou filmmaker":
     plano = st.radio("Plano", ["Básico", "Premium 🌟"])
 
     if st.button("Cadastrar filmmaker"):
-        destaque = True if "Premium" in plano else False
-
         st.session_state.filmmakers.append({
             "nome": nome,
             "cidade": cidade,
             "preco": preco,
             "instagram": instagram,
             "portfolio": portfolio,
-            "destaque": destaque
+            "destaque": "Premium" in plano
         })
 
         st.success("Cadastrado!")
