@@ -3,7 +3,7 @@ from datetime import date
 
 st.set_page_config(page_title="Aurora Momentos", layout="wide")
 
-# ---------------- ESTILO LIMPO ----------------
+# ---------------- ESTILO LIMPO (CORREÇÃO SOMENTE VISIBILIDADE INÍCIO) ----------------
 st.markdown("""
 <style>
 
@@ -53,6 +53,13 @@ h1, h2, h3, h4, h5, p, label {
     border-radius: 10px !important;
     border: none !important;
     font-weight: 600;
+}
+
+/* 🔥 CORREÇÃO DEFINITIVA DO INÍCIO (TEXTOS QUE SUMIAM NO CELULAR) */
+.stMarkdown, .stMarkdown p, .stMarkdown li, .stMarkdown ul, .stMarkdown ol {
+    color: #222 !important;
+    opacity: 1 !important;
+    visibility: visible !important;
 }
 
 </style>
@@ -131,7 +138,6 @@ elif menu == "Buscar fotógrafo":
     if st.button("Buscar"):
 
         for f in st.session_state.fotografos:
-
             st.markdown(f"""
             <div class="card">
             <h3>{f['nome']}</h3>
@@ -147,7 +153,6 @@ elif menu == "Filmmakers":
     st.markdown("### 🎬 Cinegrafistas disponíveis")
 
     for f in st.session_state.filmmakers:
-
         st.markdown(f"""
         <div class="card">
         <h3>{f['nome']}</h3>
