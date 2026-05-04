@@ -7,13 +7,13 @@ st.set_page_config(page_title="Aurora Momentos", layout="wide")
 st.markdown("""
 <style>
 
-/* fundo geral (SEM PRETO) */
+/* fundo geral */
 .stApp {
     background-color: #FAF7F8 !important;
     font-family: 'Poppins', sans-serif;
 }
 
-/* texto geral */
+/* texto seguro (não quebra Início no celular) */
 h1, h2, h3, h4, h5 {
     color: #222 !important;
 }
@@ -23,7 +23,7 @@ p, li, label {
     line-height: 1.6;
 }
 
-/* protege markdown no mobile */
+/* protege Markdown Streamlit */
 .stMarkdown {
     color: #222 !important;
 }
@@ -47,30 +47,36 @@ p, li, label {
     font-size: 14px;
 }
 
-/* ---------------- MENU (CORRIGIDO DEFINITIVO) ---------------- */
-/* caixa do select */
+/* ---------------- MENU (CORREÇÃO DEFINITIVA MOBILE) ---------------- */
 div[data-baseweb="select"] {
     background-color: white !important;
     border-radius: 10px !important;
 }
 
-/* texto selecionado */
+/* texto do select sempre visível */
 div[data-baseweb="select"] * {
     color: #222 !important;
 }
 
-/* 🔥 OPÇÕES (ESSA É A CORREÇÃO DO SEU BUG) */
+/* 🔥 FIX PRINCIPAL: dropdown aparece no topo do app */
+div[data-baseweb="popover"] {
+    z-index: 999999 !important;
+}
+
+/* lista de opções */
 div[role="listbox"] {
     background-color: white !important;
     border: 1px solid #eee !important;
-    z-index: 9999 !important;
+    z-index: 999999 !important;
 }
 
+/* opções visíveis */
 div[role="option"] {
     color: #222 !important;
     background-color: white !important;
 }
 
+/* hover */
 div[role="option"]:hover {
     background-color: #f2f2f2 !important;
 }
