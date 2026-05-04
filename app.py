@@ -3,31 +3,22 @@ from datetime import date
 
 st.set_page_config(page_title="Aurora Momentos", layout="wide")
 
-# ---------------- ESTILO (CORREÇÃO SEGURA) ----------------
+# ---------------- ESTILO (CORREÇÃO DEFINITIVA DE VISIBILIDADE) ----------------
 st.markdown("""
 <style>
 
-/* fundo fixo */
+/* fundo geral */
 .stApp {
     background-color: #FAF7F8 !important;
     font-family: 'Poppins', sans-serif;
-    color: #222 !important;
 }
 
-/* evita tema escuro do streamlit */
-[data-testid="stAppViewContainer"],
-[data-testid="stHeader"],
-[data-testid="stToolbar"],
-[data-testid="stSidebar"] {
-    background-color: #FAF7F8 !important;
-}
-
-/* 🔧 CORREÇÃO SEGURA: só aplica em texto visível (NÃO quebra inputs/widgets) */
+/* texto geral visível */
 h1, h2, h3, h4, h5, p, span, label, div {
     color: #222 !important;
 }
 
-/* HEADER */
+/* ---------------- HEADER ---------------- */
 .app-header {
     text-align:center;
     padding:10px;
@@ -35,13 +26,33 @@ h1, h2, h3, h4, h5, p, span, label, div {
     background: #1f1f1f;
 }
 
-/* header branco apenas */
-.app-header h2,
-.app-header p {
-    color: white !important;
+/* título principal SEM sumir no PC e celular */
+.app-header h2 {
+    color: #BFA181 !important;
+    font-size: 32px;
+    font-weight: 600;
 }
 
-/* CARDS */
+/* subtítulo visível */
+.app-header p {
+    color: #D6D6D6 !important;
+}
+
+/* ---------------- MENU (SELECTBOX) ---------------- */
+div[data-testid="stSelectbox"] label {
+    color: #222 !important;
+}
+
+div[data-baseweb="select"] * {
+    color: #222 !important;
+}
+
+/* dropdown opções */
+ul, li {
+    color: #222 !important;
+}
+
+/* ---------------- CARDS ---------------- */
 .card {
     background:white !important;
     border-radius:20px;
@@ -56,7 +67,7 @@ h1, h2, h3, h4, h5, p, span, label, div {
     border:2px solid #BFA181;
 }
 
-/* inputs não quebram no celular */
+/* inputs sempre visíveis */
 input, textarea, select {
     color: #222 !important;
     background-color: white !important;
@@ -233,6 +244,21 @@ elif menu == "Meu evento":
 elif menu == "Sou fotógrafo":
 
     st.markdown("### 📸 Cadastre-se como fotógrafo")
+
+    st.markdown("""
+    <div class="card">
+    <h3>💼 Planos</h3>
+
+    <p><strong>Básico — R$ 79,90</strong></p>
+    <p>✔ Perfil no site</p>
+
+    <hr>
+
+    <p><strong>Premium — R$ 129,90 🌟</strong></p>
+    <p>✔ Destaque nas buscas<br>
+    ✔ Mais visibilidade</p>
+    </div>
+    """, unsafe_allow_html=True)
 
     nome = st.text_input("Nome")
     cidade = st.text_input("Cidade")
