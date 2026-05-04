@@ -1,128 +1,113 @@
 import streamlit as st
+from datetime import date
 
 st.set_page_config(page_title="Aurora Momentos", layout="wide")
 
+# ---------------- ESTILO ----------------
 st.markdown("""
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-
 <style>
-
-/* FORÇAR MODO CLARO (resolve iPhone) */
-:root {
-    color-scheme: light;
-}
-
-/* FONTE */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
-
-html, body {
+body {
     font-family: 'Poppins', sans-serif;
-    background-color: #FAF7F8 !important;
-    color: #000000 !important;
+    background-color: #FAF7F8;
 }
 
-/* ESCONDER MENU STREAMLIT */
-#MainMenu {visibility: hidden;}
-footer {visibility: hidden;}
-header {visibility: hidden;}
-
-/* ESPAÇAMENTO */
-.block-container {
-    padding: 1rem;
-}
-
-/* BOTÕES */
-button {
-    font-size: 16px !important;
-}
-
-/* CARD */
-.card {
-    background: white !important;
-    color: black !important;
-    border-radius: 20px;
-    box-shadow: 0px 6px 18px rgba(0,0,0,0.08);
-    margin-bottom: 15px;
-    overflow: hidden;
-}
-
-.card h3, .card p {
-    color: black !important;
-}
-
-/* IMAGEM */
-.card img {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-}
-
-/* CONTEÚDO */
-.card-content {
-    padding: 15px;
-}
-
-/* DESTAQUE */
-.destaque {
-    border: 2px solid #BFA181;
-}
-
-/* BADGE */
-.badge {
-    background-color: #BFA181;
-    color: white;
-    padding: 4px 10px;
-    border-radius: 10px;
-    font-size: 12px;
-}
-
-/* WHATSAPP */
-.whatsapp {
-    display:block;
+.app-header {
     text-align:center;
-    background:#25D366;
-    color:white;
-    padding:12px;
-    border-radius:12px;
-    text-decoration:none;
-    margin-bottom:20px;
-    font-weight:600;
+    padding:10px;
+    border-bottom:1px solid #eee;
 }
 
+.card {
+    background:white;
+    border-radius:20px;
+    padding:20px;
+    margin-bottom:15px;
+    box-shadow:0 6px 18px rgba(0,0,0,0.08);
+}
+
+.premium {
+    border:2px solid #BFA181;
+}
 </style>
 """, unsafe_allow_html=True)
 
 # ---------------- HEADER ----------------
 st.markdown("""
-<h2 style='text-align:center; color:#BFA181;'>Aurora Momentos</h2>
-<p style='text-align:center; color:#777;'>Fotógrafos incríveis perto de você 📸</p>
+<div class="app-header">
+<h2 style='color:#BFA181;'>Aurora Momentos</h2>
+<p style='color:#777;'>Todo amor merece um novo amanhecer</p>
+</div>
 """, unsafe_allow_html=True)
 
-menu = st.selectbox("", ["Buscar fotógrafo", "Sou fotógrafo"])
+# ---------------- MENU ----------------
+menu = st.selectbox("", [
+    "Início",
+    "Buscar fotógrafo",
+    "Filmmakers",
+    "Meu evento",
+    "Sou fotógrafo",
+    "Sou filmmaker"
+])
 
 # ---------------- BANCO ----------------
 if "fotografos" not in st.session_state:
     st.session_state.fotografos = [
-        {"nome": "Ana Luz", "cidade": "Petrópolis", "preco": 800, "contato": "5524999991111", "destaque": True,
-         "foto": "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e"},
+        {"nome": "Ana Luz", "cidade": "Petrópolis", "preco": 900,
+         "instagram": "@analuzfoto", "portfolio": "link", "destaque": True},
 
-        {"nome": "Juliana Rocha", "cidade": "Petrópolis", "preco": 1200, "contato": "5524977773333", "destaque": True,
-         "foto": "https://images.unsplash.com/photo-1519741497674-611481863552"},
-
-        {"nome": "Fernanda Alves", "cidade": "Petrópolis", "preco": 950, "contato": "5524955555555", "destaque": True,
-         "foto": "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91"},
-
-        {"nome": "Carlos Vieira", "cidade": "Rio de Janeiro", "preco": 500, "contato": "5521988882222", "destaque": False,
-         "foto": "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee"},
-
-        {"nome": "Lucas Martins", "cidade": "Rio de Janeiro", "preco": 400, "contato": "5521944446666", "destaque": False,
-         "foto": "https://images.unsplash.com/photo-1492724441997-5dc865305da7"}
+        {"nome": "Carlos Vieira", "cidade": "Rio", "preco": 600,
+         "instagram": "@carlosfoto", "portfolio": "link", "destaque": False},
     ]
 
-# ---------------- BUSCA ----------------
-if menu == "Buscar fotógrafo":
+if "filmmakers" not in st.session_state:
+    st.session_state.filmmakers = [
+        {"nome": "Love Films", "cidade": "RJ", "preco": 2000,
+         "instagram": "@lovefilms", "portfolio": "link", "destaque": True}
+    ]
 
-    st.subheader("🔎 Buscar")
+# ---------------- INÍCIO ----------------
+if menu == "Início":
+
+    st.markdown("## ✨ Crie o site do seu evento gratuitamente")
+
+    st.markdown("""
+    ### 💖 Ideal para todos os momentos especiais
+
+    💍 **Casamentos**
+    - Crie um site romântico com a história do casal
+    - Compartilhe com convidados
+    - Organize tudo em um só lugar
+
+    👑 **Festa de 15 anos**
+    - Página personalizada da debutante
+    - Informações do evento
+    - Compartilhamento fácil
+
+    🎈 **Eventos infantis**
+    - Página divertida para aniversários
+    - Local, horário e tema organizados
+    - Facilita para pais e convidados
+
+    ---
+
+    ✨ **O que você pode fazer:**
+    - Criar seu site personalizado
+    - Contagem regressiva para o evento
+    - Informar local e detalhes
+    - Lista de presentes
+
+    ---
+
+    📸 **Encontre fotógrafos e cinegrafistas**
+    Profissionais prontos para registrar seu momento
+
+    🚀 **100% gratuito para quem cria o evento**
+    """)
+
+# ---------------- BUSCA ----------------
+elif menu == "Buscar fotógrafo":
+
+    st.markdown("### 📸 Encontre o fotógrafo ideal")
 
     cidade = st.text_input("Cidade")
     preco = st.slider("Preço máximo", 0, 5000, 1000)
@@ -135,61 +120,146 @@ if menu == "Buscar fotógrafo":
             and f["preco"] <= preco
         ]
 
-        resultados = sorted(resultados, key=lambda x: x["destaque"], reverse=True)
+        resultados = sorted(resultados, key=lambda x: x.get("destaque"), reverse=True)
 
-        for i, f in enumerate(resultados):
+        for f in resultados:
+            badge = "🌟 Premium" if f.get("destaque") else ""
+            classe = "card premium" if f.get("destaque") else "card"
 
-            badge = "🌟 Premium" if f["destaque"] else ""
-            classe = "card destaque" if f["destaque"] else "card"
-
-            link = f"https://wa.me/{f['contato']}?text=Olá, vi seu perfil no Aurora Momentos!"
-
-            # CARD
             st.markdown(f"""
-            <div class='{classe}'>
-                <img src="{f['foto']}">
-                <div class='card-content'>
-                    <h3>{f['nome']} {badge}</h3>
-                    <p>📍 {f['cidade']}</p>
-                    <p>💰 <strong style='color:#BFA181;'>R${f['preco']}</strong></p>
-                </div>
+            <div class="{classe}">
+            <h3>{f['nome']} {badge}</h3>
+            <p>📍 {f['cidade']}</p>
+            <p>💰 R${f['preco']}</p>
+            <p>📷 {f['instagram']}</p>
+            <p>📸 Portfólio: {f['portfolio']}</p>
             </div>
             """, unsafe_allow_html=True)
 
-            # BOTÃO CONTRATAR
-            if st.button(f"✨ Contratar {f['nome']}", key=f"contratar_{i}"):
-                st.success(f"Pedido enviado para {f['nome']}!")
-                st.info("Em breve você poderá acompanhar e pagar pelo app 💎")
+# ---------------- FILMMAKERS ----------------
+elif menu == "Filmmakers":
 
-            # BOTÃO WHATSAPP
-            st.markdown(f"""
-            <a href="{link}" target="_blank" class="whatsapp">
-            📲 Falar no WhatsApp
-            </a>
-            """, unsafe_allow_html=True)
+    st.markdown("### 🎬 Cinegrafistas disponíveis")
 
-# ---------------- CADASTRO ----------------
+    for f in st.session_state.filmmakers:
+        badge = "🌟 Premium" if f.get("destaque") else ""
+
+        st.markdown(f"""
+        <div class="card">
+        <h3>{f['nome']} {badge}</h3>
+        <p>📍 {f['cidade']}</p>
+        <p>💰 R${f['preco']}</p>
+        <p>📷 {f['instagram']}</p>
+        <p>🎬 Portfólio: {f['portfolio']}</p>
+        </div>
+        """, unsafe_allow_html=True)
+
+# ---------------- EVENTO ----------------
+elif menu == "Meu evento":
+
+    st.markdown("### 💖 Seu evento")
+
+    opcao = st.radio("", ["Criar", "Ver eventos"])
+
+    if opcao == "Criar":
+
+        nome = st.text_input("Nome do evento")
+        data_evento = st.date_input("Data")
+        descricao = st.text_area("Descrição")
+        local = st.text_input("Local")
+
+        if st.button("Criar evento"):
+            st.success("Evento criado!")
+
+    else:
+
+        data_exemplo = date(2026, 12, 20)
+        dias = (data_exemplo - date.today()).days
+
+        st.image("https://images.unsplash.com/photo-1519741497674-611481863552")
+
+        st.markdown(f"""
+        <div class="card">
+        <h2 style="text-align:center;">Ana & Lucas 💍</h2>
+
+        <p style="text-align:center;">
+        Um dia inesquecível para celebrar o amor
+        </p>
+
+        <p>📅 20/12/2026</p>
+        <p>⏳ {dias} dias</p>
+
+        <p>📍 Igreja Central</p>
+        <p>🎉 Espaço Aurora</p>
+
+        </div>
+        """, unsafe_allow_html=True)
+
+# ---------------- FOTÓGRAFO ----------------
 elif menu == "Sou fotógrafo":
 
-    st.subheader("📸 Criar perfil")
+    st.markdown("### 📸 Cadastre-se como fotógrafo")
+
+    st.markdown("""
+    <div class="card">
+    <h3>💼 Planos</h3>
+
+    <p><strong>Básico — R$ 79,90</strong></p>
+    <p>✔ Perfil no site</p>
+
+    <hr>
+
+    <p><strong>Premium — R$ 129,90 🌟</strong></p>
+    <p>✔ Destaque nas buscas<br>
+    ✔ Mais visibilidade</p>
+    </div>
+    """, unsafe_allow_html=True)
 
     nome = st.text_input("Nome")
     cidade = st.text_input("Cidade")
-    preco = st.number_input("Preço", 0, 10000)
-    contato = st.text_input("WhatsApp (ex: 5524999999999)")
-    foto = st.text_input("Rede social")
-    foto = st.text_input("Site")
-    destaque = st.checkbox("Quero ser Premium 🌟")
+    preco = st.number_input("Preço")
+    instagram = st.text_input("Instagram")
+    portfolio = st.text_input("Portfólio")
 
-    if st.button("Cadastrar"):
+    plano = st.radio("Plano", ["Básico", "Premium 🌟"])
+
+    if st.button("Cadastrar fotógrafo"):
+        destaque = True if "Premium" in plano else False
 
         st.session_state.fotografos.append({
             "nome": nome,
             "cidade": cidade,
             "preco": preco,
-            "contato": contato,
-            "foto": foto,
+            "instagram": instagram,
+            "portfolio": portfolio,
             "destaque": destaque
         })
 
-        st.success("Perfil criado com sucesso!")
+        st.success("Cadastrado!")
+
+# ---------------- FILMMAKER ----------------
+elif menu == "Sou filmmaker":
+
+    st.markdown("### 🎬 Cadastre-se como filmmaker")
+
+    nome = st.text_input("Nome")
+    cidade = st.text_input("Cidade")
+    preco = st.number_input("Preço")
+    instagram = st.text_input("Instagram")
+    portfolio = st.text_input("Portfólio")
+
+    plano = st.radio("Plano", ["Básico", "Premium 🌟"])
+
+    if st.button("Cadastrar filmmaker"):
+        destaque = True if "Premium" in plano else False
+
+        st.session_state.filmmakers.append({
+            "nome": nome,
+            "cidade": cidade,
+            "preco": preco,
+            "instagram": instagram,
+            "portfolio": portfolio,
+            "destaque": destaque
+        })
+
+        st.success("Cadastrado!")
