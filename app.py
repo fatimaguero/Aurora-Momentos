@@ -3,7 +3,7 @@ from datetime import date
 
 st.set_page_config(page_title="Aurora Momentos", layout="wide")
 
-# ---------------- ESTILO (AJUSTE FINAL LIMPO) ----------------
+# ---------------- ESTILO (CORREÇÃO FINAL ESTÁVEL) ----------------
 st.markdown("""
 <style>
 
@@ -13,12 +13,12 @@ st.markdown("""
     font-family: 'Poppins', sans-serif;
 }
 
-/* texto geral */
-h1, h2, h3, h4, h5, p, span, label {
+/* 🔥 IMPORTANTE: não usar div global (isso fazia sumir o Início) */
+h1, h2, h3, h4, h5, p, label {
     color: #222 !important;
 }
 
-/* HEADER SEM FUNDO PRETO */
+/* ---------------- HEADER ---------------- */
 .app-header {
     text-align:center;
     padding:15px;
@@ -31,33 +31,30 @@ h1, h2, h3, h4, h5, p, span, label {
     color: #BFA181 !important;
     font-size: 34px;
     font-weight: 700;
+    margin: 0;
 }
 
 /* subtítulo */
 .app-subtitle {
     color: #777 !important;
     font-size: 14px;
+    margin-top: 5px;
 }
 
-/* ---------------- MENU (CORREÇÃO DEFINITIVA MOBILE/PC) ---------------- */
-
-/* label do select */
+/* ---------------- MENU (CORRIGIDO VISIBILIDADE) ---------------- */
 div[data-testid="stSelectbox"] label {
     color: #222 !important;
 }
 
-/* caixa do select */
 div[data-baseweb="select"] > div {
     background-color: white !important;
     color: #222 !important;
 }
 
-/* texto dentro do select (resolve sumir no celular) */
 div[data-baseweb="select"] span {
     color: #222 !important;
 }
 
-/* opções dropdown (remove fundo escuro) */
 div[role="listbox"] {
     background-color: white !important;
 }
@@ -66,7 +63,7 @@ div[role="option"] {
     color: #222 !important;
 }
 
-/* CARDS */
+/* ---------------- CARDS ---------------- */
 .card {
     background:white !important;
     border-radius:20px;
@@ -83,7 +80,7 @@ div[role="option"] {
 /* inputs */
 input, textarea, select {
     color:#222 !important;
-    background:white !important;
+    background-color:white !important;
 }
 
 </style>
@@ -123,7 +120,7 @@ if "filmmakers" not in st.session_state:
          "instagram": "@lovefilms", "portfolio": "link", "destaque": True}
     ]
 
-# ---------------- INÍCIO (MELHORADO COM MAIS BENEFÍCIOS) ----------------
+# ---------------- INÍCIO (AGORA NÃO SOME MAIS TEXTO) ----------------
 if menu == "Início":
 
     st.markdown("## ✨ Crie o site do seu evento gratuitamente")
@@ -131,34 +128,34 @@ if menu == "Início":
     st.markdown("""
 ### 💖 Tudo o que você pode fazer na Aurora Momentos
 
-💍 **Casamentos**
+💍 Casamentos  
 - Site completo do casal com história e fotos  
 - Lista de convidados e confirmação de presença  
 - Compartilhamento fácil pelo WhatsApp  
 
-👑 **Festa de 15 anos**
+👑 Festa de 15 anos  
 - Página personalizada da debutante  
 - Contagem regressiva até o grande dia  
 - Informações organizadas do evento  
 
-🎈 **Eventos infantis**
+🎈 Eventos infantis  
 - Tema personalizado do aniversário  
 - Local, horário e lembretes automáticos  
 - Experiência simples para os convidados  
 
-📸 **Profissionais do evento**
+📸 Profissionais do evento  
 - Encontre fotógrafos e filmmakers  
 - Compare preços e portfólios  
 - Contratação direta simplificada  
 
-🚀 **Recursos extras**
+🚀 Recursos extras  
 - Site pronto em minutos  
 - Totalmente gratuito para criar evento  
 - Acesso pelo celular ou computador  
 - Design elegante e profissional
 """)
 
-# ---------------- BUSCA ----------------
+# ---------------- BUSCAR FOTÓGRAFO ----------------
 elif menu == "Buscar fotógrafo":
 
     st.markdown("### 📸 Encontre o fotógrafo ideal")
