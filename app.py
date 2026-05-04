@@ -3,36 +3,31 @@ from datetime import date
 
 st.set_page_config(page_title="Aurora Momentos", layout="wide")
 
-# ---------------- ESTILO FINAL ESTÁVEL ----------------
+# ---------------- ESTILO FINAL LIMPO ----------------
 st.markdown("""
 <style>
 
-/* fundo geral */
+/* fundo geral (minimalista, sem preto) */
 .stApp {
-    background-color: #FAF7F8 !important;
+    background-color: #F7F5F3 !important;
     font-family: 'Poppins', sans-serif;
 }
 
-/* texto seguro (não quebra Início no celular) */
+/* texto seguro */
 h1, h2, h3, h4, h5 {
     color: #222 !important;
 }
 
 p, li, label {
-    color: #222 !important;
+    color: #333 !important;
     line-height: 1.6;
-}
-
-/* protege Markdown Streamlit */
-.stMarkdown {
-    color: #222 !important;
 }
 
 /* ---------------- HEADER ---------------- */
 .app-header {
     text-align:center;
     padding:15px;
-    border-bottom:1px solid #eee;
+    border-bottom:1px solid #e6e6e6;
     background: transparent !important;
 }
 
@@ -47,38 +42,40 @@ p, li, label {
     font-size: 14px;
 }
 
-/* ---------------- MENU (CORREÇÃO DEFINITIVA MOBILE) ---------------- */
+/* ---------------- MENU (CORREÇÃO FINAL MOBILE) ---------------- */
+
+/* caixa principal do select */
 div[data-baseweb="select"] {
-    background-color: white !important;
+    background-color: #ffffff !important;
+    border: 1px solid #ddd !important;
     border-radius: 10px !important;
 }
 
-/* texto do select sempre visível */
+/* texto selecionado */
 div[data-baseweb="select"] * {
     color: #222 !important;
 }
 
-/* 🔥 FIX PRINCIPAL: dropdown aparece no topo do app */
+/* 🔥 DROPDOWN (REMOVE FUNDO PRETO DO CELULAR) */
 div[data-baseweb="popover"] {
     z-index: 999999 !important;
 }
 
 /* lista de opções */
 div[role="listbox"] {
-    background-color: white !important;
-    border: 1px solid #eee !important;
-    z-index: 999999 !important;
+    background-color: #ffffff !important;
+    border: 1px solid #e5e5e5 !important;
 }
 
 /* opções visíveis */
 div[role="option"] {
     color: #222 !important;
-    background-color: white !important;
+    background-color: #ffffff !important;
 }
 
-/* hover */
+/* hover leve minimalista */
 div[role="option"]:hover {
-    background-color: #f2f2f2 !important;
+    background-color: #f2f0ee !important;
 }
 
 /* ---------------- BOTÃO ---------------- */
@@ -86,7 +83,6 @@ div[role="option"]:hover {
     background-color: #BFA181 !important;
     color: white !important;
     border-radius: 10px !important;
-    padding: 8px 16px !important;
     border: none !important;
     font-weight: 600;
 }
