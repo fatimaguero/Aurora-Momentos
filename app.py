@@ -6,23 +6,32 @@ st.set_page_config(page_title="Aurora Momentos", layout="wide")
 # ---------------- ESTILO ----------------
 st.markdown("""
 <style>
-body {
-    font-family: 'Poppins', sans-serif;
+.stApp {
     background-color: #FAF7F8;
+    color: #222 !important;
+    font-family: 'Poppins', sans-serif;
 }
 
+/* garante leitura no mobile */
+h1, h2, h3, h4, p, span, label {
+    color: #222 !important;
+}
+
+/* header */
 .app-header {
     text-align:center;
     padding:10px;
     border-bottom:1px solid #eee;
 }
 
+/* cards */
 .card {
     background:white;
     border-radius:20px;
     padding:20px;
     margin-bottom:15px;
     box-shadow:0 6px 18px rgba(0,0,0,0.08);
+    color:#222 !important;
 }
 
 .premium {
